@@ -135,7 +135,8 @@ while run:
 
         while temp > 0.000000001 and fit > 0:
             iterations += 1
-            print(f"Run {runs}: Iteration {iterations}")
+            if iterations % 100 == 0:
+                print(f"Run {runs}: Iteration {iterations}s...")
             if iterations > 5000:
                 # max runs reached. Restart algo
                 break
