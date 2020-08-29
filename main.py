@@ -1,6 +1,7 @@
 import random
 import math
 import pprint
+import copy
 
 
 # fitness function(s)
@@ -27,14 +28,12 @@ def check_fit(solution_test):
                 if second_car['position'] == next_index and second_car['person'] == 'British':
                     this_fit -= 1
 
-
         #5	To the right of the car hired by a French lady was the car going to Gold Coast.
         if car['person'] == 'French' and car['position'] != 4:
             next_index = car['position'] + 1
             for second_car in solution_test:
                 if second_car['position'] == next_index and second_car['destination'] == 'Gold Coast':
                     this_fit -= 1
-
 
         #6	The Nissan X-Trail was heading for Sydney.
         if car['make'] == 'Nissan X-Trail' and car['destination'] == 'Sydney':
@@ -44,9 +43,8 @@ def check_fit(solution_test):
         if car['person'] == 'Chinese' and car['position'] != 4:
             next_index = car['position'] + 1
             for second_car in solution_test:
-                if second_car['position'] == next_index and second_car['color'] == 'Green':
+                if second_car['position'] == next_index and second_car['color'] == 'green':
                     this_fit -= 1
-
 
         #8	The car going to Newcastle left at 5:00am.
         if car['destination'] == 'Newcastle' and car['time'] == '5am':
@@ -59,11 +57,9 @@ def check_fit(solution_test):
                 if second_car['position'] == next_index and second_car['make'] == 'Honda Civic' and second_car['time'] == '7am':
                     this_fit -= 1
 
-
         #10	The car with a red colour was going to Tamworth.
         if car['color'] == 'red' and car['destination'] == 'Tamworth':
             this_fit -= 1
-
 
         #11	To the left of the car that left at 7:00am was the car with a white colour.
         if car['color'] == 'white' and car['position'] != 4:
@@ -71,7 +67,6 @@ def check_fit(solution_test):
             for second_car in solution_test:
                 if second_car['position'] == next_index and second_car['time'] == '7am':
                     this_fit -= 1
-
 
         #12	The last car was hired by an Indian man.
         if car['position'] == 4 and car['person'] == 'Indian':
@@ -121,7 +116,7 @@ for i in range(0, 5):
 
 # SIM ANNEALING
 
-temp = 10
+temp = 0.0015
 cooling = 0.9999
 fit = 100
 iterations = 0
@@ -131,15 +126,15 @@ while temp > 0.000000001 and fit > 0:
     print(f"Fitness is {fit}")
     # the actual solution (for testing reasons)
     # solutionTest = [
-    #     {'position': 0, 'color': 'blue', 'make': 'Holden Barina', 'time': '6am', 'person': 'Canadian', 'destination': 'Newcastle'},
-    #     {'position': 1, 'color': 'red', 'make': 'Toyota Camry', 'time': '5am', 'person': 'British', 'destination': 'Tamworth'},
+    #     {'position': 0, 'color': 'blue', 'make': 'Holden Barina', 'time': '5am', 'person': 'Canadian', 'destination': 'Newcastle'},
+    #     {'position': 1, 'color': 'red', 'make': 'Toyota Camry', 'time': '6am', 'person': 'British', 'destination': 'Tamworth'},
     #     {'position': 2, 'color': 'black', 'make': 'Nissan X-Trail', 'time': '8am', 'person': 'French', 'destination': 'Sydney'},
     #     {'position': 3, 'color': 'white', 'make': 'Hyundai Accent', 'time': '9am', 'person': 'Chinese', 'destination': 'Gold Coast'},
     #     {'position': 4, 'color': 'green', 'make': 'Honda Civic', 'time': '7am', 'person': 'Indian', 'destination': 'Port Macquarie'},
     # ]
     #
     # to find the solutionTest, randomly pick an attribute and swap 2 random cars
-    solutionTest = solution
+    solutionTest = copy.deepcopy(solution)
     attributes = ['position', 'color', 'make', 'time', 'person', 'destination']
     rand_attribute = random.choice(attributes)
     car1 = random.randint(0, 4)
