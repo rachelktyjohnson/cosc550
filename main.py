@@ -3,6 +3,11 @@ import math
 import pprint
 import copy
 
+# global
+iterations = 0
+runs = 0
+run = True
+
 
 # fitness function(s)
 def check_fit(solution_test):
@@ -90,73 +95,84 @@ def check_fit(solution_test):
     return this_fit
 
 
-# variables
-position = [0, 1, 2, 3, 4]
-color = ['black', 'blue', 'green', 'red', 'white']
-make = ['Holden Barina', 'Honda Civic', 'Hyundai Accent', 'Nissan X-Trail', 'Toyota Camry']
-time = ['5am', '6am', '7am', '8am', '9am']
-person = ['British', 'Canadian', 'Chinese', 'French', 'Indian']
-destination = ['Gold Coast', 'Newcastle', 'Port Macquarie', 'Sydney', 'Tamworth']
+print("Alright! Ready to solve this puzzle? Press any key to start!")
+input()
 
+# While we want the loop to keep running
+while run:
+    runs += 1
+    iterations = 0
+    # GENERATE RANDOM START SOLUTION
 
-# seed for starter solution
-random.shuffle(position)
-random.shuffle(color)
-random.shuffle(make)
-random.shuffle(time)
-random.shuffle(person)
-random.shuffle(destination)
+    # variables
+    position = [0, 1, 2, 3, 4]
+    color = ['black', 'blue', 'green', 'red', 'white']
+    make = ['Holden Barina', 'Honda Civic', 'Hyundai Accent', 'Nissan X-Trail', 'Toyota Camry']
+    time = ['5am', '6am', '7am', '8am', '9am']
+    person = ['British', 'Canadian', 'Chinese', 'French', 'Indian']
+    destination = ['Gold Coast', 'Newcastle', 'Port Macquarie', 'Sydney', 'Tamworth']
 
-# random starter solution
-solution = []
-for i in range(0, 5):
-    solution.append(
-        {'position': position[i], 'color': color[i], 'make': make[i], 'time': time[i], 'person': person[i], 'destination': destination[i]}
-    )
+    # seed for starter solution
+    random.shuffle(position)
+    random.shuffle(color)
+    random.shuffle(make)
+    random.shuffle(time)
+    random.shuffle(person)
+    random.shuffle(destination)
 
-# SIM ANNEALING
+    # random starter solution
+    solution = []
+    for i in range(0, 5):
+        solution.append(
+            {'position': position[i], 'color': color[i], 'make': make[i], 'time': time[i], 'person': person[i], 'destination': destination[i]}
+        )
 
-temp = 0.0015
-cooling = 0.9999
-fit = 100
-iterations = 0
+    # SEARCH ALGO
+    while iterations < 5000:
+        temp = 0.0015
+        cooling = 0.9999
+        fit = 100
 
-while temp > 0.000000001 and fit > 0:
-    iterations += 1
-    print(f"Fitness is {fit}")
-    # the actual solution (for testing reasons)
-    # solutionTest = [
-    #     {'position': 0, 'color': 'blue', 'make': 'Holden Barina', 'time': '5am', 'person': 'Canadian', 'destination': 'Newcastle'},
-    #     {'position': 1, 'color': 'red', 'make': 'Toyota Camry', 'time': '6am', 'person': 'British', 'destination': 'Tamworth'},
-    #     {'position': 2, 'color': 'black', 'make': 'Nissan X-Trail', 'time': '8am', 'person': 'French', 'destination': 'Sydney'},
-    #     {'position': 3, 'color': 'white', 'make': 'Hyundai Accent', 'time': '9am', 'person': 'Chinese', 'destination': 'Gold Coast'},
-    #     {'position': 4, 'color': 'green', 'make': 'Honda Civic', 'time': '7am', 'person': 'Indian', 'destination': 'Port Macquarie'},
-    # ]
-    #
-    # to find the solutionTest, randomly pick an attribute and swap 2 random cars
-    solutionTest = copy.deepcopy(solution)
-    attributes = ['position', 'color', 'make', 'time', 'person', 'destination']
-    rand_attribute = random.choice(attributes)
-    car1 = random.randint(0, 4)
-    car2 = random.randint(0, 4)
-    while car2 == car1:
-        car2 = random.randint(0, 4)
-    solutionTest[car1][rand_attribute], solutionTest[car2][rand_attribute] = solutionTest[car2][rand_attribute], solutionTest[car1][rand_attribute]
+        while temp > 0.000000001 and fit > 0:
+            iterations += 1
+            print(f"Run {runs}: Iteration {iterations}")
+            if iterations > 5000:
+                # max runs reached. Restart algo
+                break
+            # the actual solution (for testing reasons)
+            # solutionTest = [
+            #     {'position': 0, 'color': 'blue', 'make': 'Holden Barina', 'time': '5am', 'person': 'Canadian', 'destination': 'Newcastle'},
+            #     {'position': 1, 'color': 'red', 'make': 'Toyota Camry', 'time': '6am', 'person': 'British', 'destination': 'Tamworth'},
+            #     {'position': 2, 'color': 'black', 'make': 'Nissan X-Trail', 'time': '8am', 'person': 'French', 'destination': 'Sydney'},
+            #     {'position': 3, 'color': 'white', 'make': 'Hyundai Accent', 'time': '9am', 'person': 'Chinese', 'destination': 'Gold Coast'},
+            #     {'position': 4, 'color': 'green', 'make': 'Honda Civic', 'time': '7am', 'person': 'Indian', 'destination': 'Port Macquarie'},
+            # ]
+            #
+            # to find the solutionTest, randomly pick an attribute and swap 2 random cars
+            solutionTest = copy.deepcopy(solution)
+            attributes = ['position', 'color', 'make', 'time', 'person', 'destination']
+            rand_attribute = random.choice(attributes)
+            car1 = random.randint(0, 4)
+            car2 = random.randint(0, 4)
+            while car2 == car1:
+                car2 = random.randint(0, 4)
+            solutionTest[car1][rand_attribute], solutionTest[car2][rand_attribute] = solutionTest[car2][rand_attribute], solutionTest[car1][rand_attribute]
 
-    fitTest = check_fit(solutionTest)
-    if fitTest < fit:
-        solution = solutionTest
-        fit = fitTest
-    else:
-        try:
-            swap = math.exp((fit - fitTest) / temp)
-        except ZeroDivisionError:
-            swap = 1
-        if swap > random.choice([0, 1]):
-            fit = fitTest
-            solution = solutionTest
-            temp = temp * cooling
-
-
-print(f"Solved using {iterations} iterations at {fit} fitness.")
-pprint.pprint(solution)
+            fitTest = check_fit(solutionTest)
+            if fitTest < fit:
+                solution = solutionTest
+                fit = fitTest
+            else:
+                try:
+                    swap = math.exp((fit - fitTest) / temp)
+                except ZeroDivisionError:
+                    swap = 1
+                if swap > random.choice([0, 1]):
+                    fit = fitTest
+                    solution = solutionTest
+                    temp = temp * cooling
+        if fit == 0:
+            run = False
+            print(f"Solved using {iterations} iterations at {fit} fitness on run {runs} (an additional {(runs-1)*5000} iterations).")
+            pprint.pprint(solution)
+        break
