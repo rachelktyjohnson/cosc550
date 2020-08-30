@@ -145,7 +145,7 @@ while run:
 
         while temp > 0.000000001 and fit > 0:
             if iterations % 100 == 0:
-                print(f"Run {runs}: Iteration {iterations}-{iterations+100}...")
+                print(f"Run {runs}: Iterations {iterations}-{iterations+100}...")
             iterations += 1
 
             if iterations > 5000:
