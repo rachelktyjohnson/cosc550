@@ -144,8 +144,8 @@ while run:
         fit = 100
 
         while temp > 0.000000001 and fit > 0:
-            if iterations % 100 == 0:
-                print(f"Run {runs}: Iterations {iterations}-{iterations+100}...")
+            if iterations % 500 == 0:
+                print(f"Run {runs}: Iterations {iterations}-{iterations+500}...")
             iterations += 1
 
             if iterations > 5000:
@@ -188,9 +188,16 @@ while run:
             print("\n----------------------------\n")
             print("I solved the puzzle!")
             print(f"I used {iterations} iterations on Run {runs}")
-            if runs>1:
+
+            if runs > 1:
                 print(f"(Therefore a total of {(runs-1)*5000 + iterations} iterations)")
-            print(f"It took me {round((tt.time() - t0)*1000,2)} milliseconds")
+
+            time_elapsed = (tt.time() - t0)
+            if time_elapsed > 1:
+                print(f"It took me {round(time_elapsed, 2)} seconds")
+            else:
+                print(f"It took me {round(time_elapsed*1000,2)} milliseconds")
+
             print("\n----------------------------\n")
             solution.sort(key=operator.itemgetter('position'))
             print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format('POS', 'COLOR', 'MAKE', 'TIME', 'PERSON', 'DESTINATION'))
