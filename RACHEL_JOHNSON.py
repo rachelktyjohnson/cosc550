@@ -189,8 +189,8 @@ while run:
             print("I solved the puzzle!")
             print(f"I used {iterations} iterations on Run {runs}")
             if runs>1:
-                print(f"(Therefore a total of {(runs-1)*5000 + iterations} iterations).")
-            print(f"It took me {round(tt.time() - t0,2)} seconds")
+                print(f"(Therefore a total of {(runs-1)*5000 + iterations} iterations)")
+            print(f"It took me {round((tt.time() - t0)*1000,2)} milliseconds")
             print("\n----------------------------\n")
             solution.sort(key=operator.itemgetter('position'))
             print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format('POS', 'COLOR', 'MAKE', 'TIME', 'PERSON', 'DESTINATION'))
