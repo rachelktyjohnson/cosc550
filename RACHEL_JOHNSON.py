@@ -193,7 +193,7 @@ while run:
             print(f"It took me {round(tt.time() - t0,2)} seconds")
             print("\n----------------------------\n")
             solution.sort(key=operator.itemgetter('position'))
-            print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format('Pos', 'Color', 'Make', 'Time', 'Person', 'Destination'))
+            print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format('POS', 'COLOR', 'MAKE', 'TIME', 'PERSON', 'DESTINATION'))
             for car in solution:
                 print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format(car['position']+1, car['color'].capitalize(), car['make'], car['time'], car['person'], car['destination']))
                 if car['destination'] == 'Port Macquarie':
