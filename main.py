@@ -1,7 +1,8 @@
 import random
 import math
-import pprint
 import copy
+import operator
+import time as tt
 
 # global
 iterations = 0
@@ -94,10 +95,16 @@ def check_fit(solution_test):
 
     return this_fit
 
+print("\n└[∵┌]└[ ∵ ]┘[┐∵]┘\n")
 
-print("Alright! Ready to solve this puzzle? Press any key to start!")
+print("Hello! I'm the PLGPS, the Python Logic Grid Puzzle Solver! \n"
+      "I was written by Rachel Johnson for COSC550 at UNE.\n"
+      "I was programmed to solve this puzzle: http://bit.ly/COSC550_puzzle_description\n"
+      "I use simulated annealing search.\n"
+      "Should I get stuck in a local maximum, I am programmed to restart my search from a new starting point (You'll see these as 'runs').\n"
+      "So, we're ready? Press ENTER to get me going!")
 input()
-
+t0 = tt.time()
 # While we want the loop to keep running
 while run:
     runs += 1
@@ -134,9 +141,10 @@ while run:
         fit = 100
 
         while temp > 0.000000001 and fit > 0:
-            iterations += 1
             if iterations % 100 == 0:
-                print(f"Run {runs}: Iteration {iterations}s...")
+                print(f"Run {runs}: Iteration {iterations}-{iterations+100}...")
+            iterations += 1
+
             if iterations > 5000:
                 # max runs reached. Restart algo
                 break
@@ -174,6 +182,22 @@ while run:
                     temp = temp * cooling
         if fit == 0:
             run = False
-            print(f"Solved using {iterations} iterations at {fit} fitness on run {runs} (an additional {(runs-1)*5000} iterations).")
-            pprint.pprint(solution)
+            print("\n----------------------------\n")
+            print("I solved the puzzle!")
+            print(f"I used {iterations} iterations on Run {runs}")
+            print(f"(Therefore a total of {(runs-1)*5000 + iterations} iterations).")
+            print(f"It took me {tt.time() - t0} seconds")
+            print("\n----------------------------\n")
+            solution.sort(key=operator.itemgetter('position'))
+            print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format('Pos', 'Color', 'Make', 'Time', 'Person', 'Destination'))
+            for car in solution:
+                print("{:<5} {:<7} {:<16} {:<5} {:<10} {:<16}".format(car['position']+1, car['color'].capitalize(), car['make'], car['time'], car['person'], car['destination']))
+                if car['destination'] == 'Port Macquarie':
+                    port_mac_car = car['make']
+                if car['person'] == 'Canadian':
+                    canadian_car = car['make']
+            print(f"\nThe {port_mac_car} was going to Port Macquarie. The {canadian_car} was hired by a Canadian couple.\n")
+            print("----------------------------\n")
+            print(f"Thanks for hanging out! Catch you next time.")
+            print("\n└[∵┌]└[ ∵ ]┘[┐∵]┘\n")
         break
