@@ -29,3 +29,4 @@ This assignment required me to write a program to find the solution to a logic g
 - The car heading for Tamworth left at 6:00am.
 
 **Which car was going to Port Macquarie? Which car was hired by a Canadian couple?**     
+
