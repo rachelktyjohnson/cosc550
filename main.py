@@ -100,8 +100,9 @@ print("\n└[∵┌]└[ ∵ ]┘[┐∵]┘\n")
 print("Hello! I'm the PLGPS, the Python Logic Grid Puzzle Solver! \n"
       "I was written by Rachel Johnson for COSC550 at UNE.\n"
       "I was programmed to solve this puzzle: http://bit.ly/COSC550_puzzle_description\n"
-      "I use simulated annealing search.\n"
-      "Should I get stuck in a local maximum, I am programmed to restart my search from a new starting point (You'll see these as 'runs').\n"
+      "I use simulated annealing to perform my search.\n"
+      "Should I get stuck in a local maximum, I am programmed to restart my search from a new starting point\n"
+      "(You'll see these as 'runs').\n"
       "So, we're ready? Press ENTER to get me going!")
 input()
 t0 = tt.time()
@@ -185,7 +186,8 @@ while run:
             print("\n----------------------------\n")
             print("I solved the puzzle!")
             print(f"I used {iterations} iterations on Run {runs}")
-            print(f"(Therefore a total of {(runs-1)*5000 + iterations} iterations).")
+            if runs>1:
+                print(f"(Therefore a total of {(runs-1)*5000 + iterations} iterations).")
             print(f"It took me {tt.time() - t0} seconds")
             print("\n----------------------------\n")
             solution.sort(key=operator.itemgetter('position'))
