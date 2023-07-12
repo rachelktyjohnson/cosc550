@@ -100,7 +100,6 @@ def check_fit(solution_test):
 print("\n└[∵┌]└[ ∵ ]┘[┐∵]┘\n")
 
 print("Hello! I'm the PLGPS, the Python Logic Grid Puzzle Solver! \n"
-      "I was written by Rachel Johnson for COSC550 at UNE.\n"
       "I was programmed to solve this puzzle: http://bit.ly/COSC550_puzzle_description\n"
       "I use simulated annealing to perform my search.\n"
       "Should I get stuck in a local maximum, I am programmed to restart my search from a new starting point\n"
