@@ -1,12 +1,12 @@
-# COSC550 Programming Assessment
+# Logic Puzzle Solver
 
-This assignment required me to write a program to find the solution to a logic grid puzzle. A logic grid puzzle is one type of logic puzzles that are set up based on the rules of deduction.
+This program is used to find the solution to a logic grid puzzle. A logic grid puzzle is one type of logic puzzle that is set up based on the rules of deduction.
 
 ## How to use
 - In a Command-Line interface
-- Navigate to the directory with this `readme` and `RACHEL_JOHNSON.py`
-- Run `chmod 777 RACHEL_JOHNSON.py` to make sure you, the user, can run the script
-- Run `./RACHEL_JOHNSON.py` to run the script
+- Navigate to the directory with this `readme` and `app.py`
+- Run `chmod 777 app.py` to make sure you, the user, can run the script
+- Run `./app.py` to run the script
 - The program, PLGPS, will output some program info. Please read and then press enter to get solving!
 
 ## The Puzzle
